@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 
 const News = () => {
   const [articles, setArticles] = useState([]);
@@ -30,20 +31,31 @@ const News = () => {
   };
 
   return (
-    <div>
-      <h2>Top Stories</h2>
-      {articles.map((article) => (
-        <div key={article.id}>
-          <h3>{article.title}</h3>
-          <p>Author: {article.by}</p>
-          <p>Score: {article.score}</p>
-          <a href={article.url} target="_blank" rel="noreferrer">
-            Read More
-          </a>
-          <button onClick={() => handleBookmark(article)}>Bookmark</button>
-        </div>
-      ))}
-    </div>
+    <Container>
+      <h2 className="my-4">Top Stories</h2>
+      <Row>
+        {articles.map((article) => (
+          <Col key={article.id} xs={12} md={6} lg={4}>
+            <Card className="mb-4">
+              <Card.Body>
+                <Card.Title>{article.title}</Card.Title>
+                <Card.Text>
+                  <small>Author: {article.by}</small>
+                  <br />
+                  <small>Score: {article.score}</small>
+                </Card.Text>
+                <Button variant="primary" href={article.url} target="_blank" rel="noreferrer">
+                  Read More
+                </Button>{' '}
+                <Button variant="outline-secondary" onClick={() => handleBookmark(article)}>
+                  Bookmark
+                </Button>
+              </Card.Body>
+            </Card>
+          </Col>
+        ))}
+      </Row>
+    </Container>
   );
 };
 
